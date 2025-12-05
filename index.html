@@ -3,60 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة انتظار الحل</title>
+    <title>صفحة انتظار الحل | التصميم الاحترافي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>⏳ لم يُنشر الحل بعد</h1>
-        <p>عزيزي التلميذ، لن يتم نشر الحل النموذجي حتى انتهاء مدة الامتحان المحددة.</p>
+    <div class="card-container">
+        <header>
+            <h1 class="main-title">⏳ الحل قيد النشر</h1>
+            <p class="subtitle">عزيزي التلميذ، يظهر الحل النموذجي تلقائياً فور انتهاء مدة الامتحان.</p>
+        </header>
 
-        <div id="countdown-display">
-            <p>يتبقى على نشر الحل:</p>
-            <div class="timer">
-                <span id="hours">00</span><small> ساعة</small>
-                <span id="minutes">00</span><small> دقيقة</small>
-                <span id="seconds">00</span><small> ثانية</small>
+        <section id="countdown-display" class="countdown-section">
+            <h2>يتبقى على النشر:</h2>
+            
+            <div class="timer-grid">
+                <div class="timer-unit">
+                    <span id="hours" class="time-number">00</span>
+                    <span class="time-label">ساعة</span>
+                </div>
+                
+                <div class="timer-unit">
+                    <span id="minutes" class="time-number">00</span>
+                    <span class="time-label">دقيقة</span>
+                </div>
+                
+                <div class="timer-unit">
+                    <span id="seconds" class="time-number">00</span>
+                    <span class="time-label">ثانية</span>
+                </div>
             </div>
-        </div>
-
-        <div id="solution-ready-message" style="display:none;">
-            <p>انتهى وقت الامتحان! يمكنك الآن الانتقال لرؤية الحل.</p>
-            <a href="solution.html" class="button">رابط الحل النموذجي</a>
-        </div>
+            
+        </section>
+        
+        <footer class="note">
+            يرجى التأكد من الموعد المحدد لانتهاء فترة الامتحان.
+        </footer>
     </div>
 
     <script>
         // **!!! يجب تعديل هذا التاريخ والوقت !!!**
-        // يمثل تاريخ ووقت انتهاء مدة الامتحان وبدء عرض الحل
+        // تاريخ ووقت انتهاء الامتحان (مثال: 5 ديسمبر 2025 الساعة 18:00:00)
         // الصيغة: السنة, الشهر-1 (يناير=0), اليوم, الساعة, الدقيقة, الثانية
-        // مثال: 5 ديسمبر 2025 الساعة 18:00:00 (06:00 مساءً)
-        const deadline = new Date(2025, 12, 9, 12, 0, 0).getTime();
-
+        const deadline = new Date(2025, 11, 5, 18, 0, 0).getTime(); 
+        
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             const distance = deadline - now;
 
-            // إذا انتهى الوقت
+            // إذا انتهى الوقت: تحويل للصفحة solution.html
             if (distance < 0) {
                 clearInterval(timerInterval);
-                // توجيه تلقائي لصفحة الحل
                 window.location.href = "solution.html";
                 return; 
             }
 
-            // حساب الوقت المتبقي
+            // حساب وعرض الوقت المتبقي
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // عرض العداد
+            // عرض الأرقام مع إضافة صفر في البداية إذا كانت أقل من 10
             document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
             document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
             document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
 
-        }, 1000); // تحديث كل ثانية
+        }, 1000);
     </script>
 </body>
 </html>
