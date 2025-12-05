@@ -1,66 +1,123 @@
+/* 1. التنسيق الأساسي والخطوط */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    /* الخلفية: تدرج بسيط وهادئ */
+    background-color: #f0f2f5;
+    background-image: linear-gradient(135deg, #f0f2f5 0%, #e0e4eb 100%);
     color: #333;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
     padding: 20px;
-    direction: rtl; /* لدعم اللغة العربية */
+    direction: rtl; 
+    /* الخط الافتراضي للنصوص العادية (يبدو واضحاً وحديثاً) */
+    font-family: 'Noto Sans Arabic', sans-serif; 
+    text-align: center;
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
+/* 2. حاوية البطاقة (Card Container) */
+.card-container {
+    max-width: 550px;
+    width: 100%;
+    padding: 40px;
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 16px; /* حواف مستديرة */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* ظل خفيف واحترافي */
+    transition: transform 0.3s ease-in-out;
 }
 
-h1 {
-    color: #007bff;
-    margin-bottom: 20px;
+.card-container:hover {
+    transform: translateY(-5px);
 }
 
-p {
+/* 3. العناوين والنصوص */
+.main-title {
+    color: #3b5998; /* لون أزرق جذاب */
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitle {
     font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
     line-height: 1.6;
 }
 
-.timer {
-    margin: 30px 0;
-    padding: 15px;
-    background-color: #e9ecef;
-    border-radius: 5px;
-    font-size: 2em;
-    color: #dc3545;
-    font-weight: bold;
+h2 {
+    font-size: 1.4em;
+    color: #3b5998;
+    margin-bottom: 20px;
+}
+
+/* 4. تصميم العداد التنازلي */
+.timer-grid {
     display: flex;
     justify-content: space-around;
-    align-items: baseline;
+    gap: 15px;
+    margin-top: 30px;
 }
 
-.timer span {
+.timer-unit {
+    flex-basis: 30%;
+    background-color: #f7f7f7;
+    padding: 15px 10px;
+    border-radius: 10px;
+    border-top: 5px solid #ff6347; /* لون مميز للعد التنازلي */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.time-number {
+    /* الخط المخصص للعداد - رقمي وحديث جداً */
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 3em;
+    font-weight: 500;
+    color: #ff6347; /* لون أحمر/برتقالي لافت للنظر */
     display: block;
-    font-size: 1.5em;
 }
 
-.timer small {
-    font-size: 0.4em;
-    color: #6c757d;
+.time-label {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #888;
 }
 
+/* 5. زر الإجراء (لصفحة الحل) */
 .button {
     display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #28a745;
+    padding: 12px 25px;
+    margin-top: 30px;
+    background-color: #00b894; /* لون أخضر جذاب للنجاح/الحل */
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1.2em;
-    transition: background-color 0.3s;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 184, 148, 0.3);
 }
 
 .button:hover {
-    background-color: #218838;
+    background-color: #00a082;
+    transform: translateY(-2px);
+}
+
+/* 6. رسالة التذييل */
+.note {
+    margin-top: 40px;
+    font-size: 0.85em;
+    color: #aaa;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+/* 7. تنسيق حالة النجاح (لصفحة solution.html) */
+.success-state .main-title {
+    color: #00b894; /* لون أخضر للنجاح */
+}
+.success-state .action-section {
+    padding-top: 20px;
 }
