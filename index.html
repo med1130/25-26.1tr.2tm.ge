@@ -3,76 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة انتظار الحل | التصميم الاحترافي</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <title>صفحة الانتظار</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0c0c0c;
+            color: #00ff99;
+            font-family: Tahoma, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: nowrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .box {
+            background: #000;
+            border: 3px solid #00ff99;
+            border-radius: 12px;
+            padding: 10px 0;
+            width: 33%;
+            box-shadow: 0 0 14px #00ff99;
+        }
+
+        .num {
+            font-size: 2.8rem;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #00ff99;
+            text-shadow: 0 0 12px #00ff99;
+        }
+
+        .label {
+            margin-top: 4px;
+            font-size: 1.1rem;
+        }
+
+        /* تحسين الظهور على الهواتف الصغيرة جداً */
+        @media (max-width: 380px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .num {
+                font-size: 2.2rem;
+            }
+            .label {
+                font-size: 1rem;
+            }
+            .box {
+                padding: 8px 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-    <div class="card-container">
-        <header>
-            <h1 class="main-title">⏳ الحل قيد النشر</h1>
-            <p class="subtitle">عزيزي التلميذ، يظهر الحل النموذجي تلقائياً فور انتهاء مدة الامتحان.</p>
-        </header>
+    <h1>
+        الاختبار مبرمج يوم 9 ديسمبر 2025<br>
+        سيتم نشر التصحيح النموذجي وسلّم التنقيط<br>
+     على الساعة 10:00
+    </h1>
 
-        <section id="countdown-display" class="countdown-section">
-            <h2>يتبقى على النشر:</h2>
-            
-            <div class="timer-grid">
-                <div class="timer-unit">
-                    <span id="hours" class="time-number">00</span>
-                    <span class="time-label">ساعة</span>
-                </div>
-                
-                <div class="timer-unit">
-                    <span id="minutes" class="time-number">00</span>
-                    <span class="time-label">دقيقة</span>
-                </div>
-                
-                <div class="timer-unit">
-                    <span id="seconds" class="time-number">00</span>
-                    <span class="time-label">ثانية</span>
-                </div>
-            </div>
-            
-        </section>
-        
-        <footer class="note">
-            يرجى التأكد من الموعد المحدد لانتهاء فترة الامتحان.
-        </footer>
+    <div class="countdown">
+        <div class="box">
+            <div id="hours" class="num">00</div>
+            <div class="label">ساعات</div>
+        </div>
+
+        <div class="box">
+            <div id="minutes" class="num">00</div>
+            <div class="label">دقائق</div>
+        </div>
+
+        <div class="box">
+            <div id="seconds" class="num">00</div>
+            <div class="label">ثواني</div>
+        </div>
     </div>
 
     <script>
-        // **!!! يجب تعديل هذا التاريخ والوقت !!!**
-        // تاريخ ووقت انتهاء الامتحان (مثال: 5 ديسمبر 2025 الساعة 18:00:00)
-        // الصيغة: السنة, الشهر-1 (يناير=0), اليوم, الساعة, الدقيقة, الثانية
-        const deadline = new Date(2025, 11, 5, 18, 0, 0).getTime(); 
-        
-        const timerInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = deadline - now;
+       const targetTime = new Date(2025, 11, 9, 10, 00, 0).getTime();
 
-            // إذا انتهى الوقت: تحويل للصفحة solution.html
-            if (distance < 0) {
-                clearInterval(timerInterval);
+
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetTime - now;
+
+            if (diff <= 0) {
+                clearInterval(timer);
                 window.location.href = "solution.html";
-                return; 
             }
 
-            // حساب وعرض الوقت المتبقي
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const h = Math.floor(diff / (1000 * 60 * 60));
 
-            // عرض الأرقام مع إضافة صفر في البداية إذا كانت أقل من 10
-            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("hours").textContent = String(h).padStart(2, "0");
+            document.getElementById("minutes").textContent = String(m).padStart(2, "0");
+            document.getElementById("seconds").textContent = String(s).padStart(2, "0");
 
         }, 1000);
     </script>
+
 </body>
 </html>
